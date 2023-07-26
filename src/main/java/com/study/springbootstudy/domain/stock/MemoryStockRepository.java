@@ -9,10 +9,12 @@ import java.util.*;
 public class MemoryStockRepository implements StockRepository {
 
     private static final Map<Long, Stock> store = new HashMap<>();
+    private static long sequence = 0L;
 
 
     @Override
     public Stock save(Stock stock) {
+        stock.setId(++sequence);
         store.put(stock.getId(), stock);
         return stock;
     }

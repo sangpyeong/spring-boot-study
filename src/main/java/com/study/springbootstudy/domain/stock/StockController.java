@@ -4,28 +4,24 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
 @ResponseBody
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class StockController {
 
     private final StockService stockService;
 
     @PostMapping("/stock/add")
-    public Stock addStock(Stock stock) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(stock);
-        System.out.println(json);
+    public String addStock(@RequestBody Stock stock) throws JsonProcessingException {
         stockService.create(stock);
-        return stock;
+        return "redirect:/stocks";
     }
+
 
     @GetMapping("/stocks")
     public List<Stock> stocks(){
@@ -37,14 +33,13 @@ public class StockController {
         return stockService.findById(stockId);
     }
 
-    @GetMapping("/stock/{stockId}/edit")
-    public Stock oldStock(@PathVariable Long stockId){
-        return stockService.findById(stockId);
-    }
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/stock/{stockId}/edit")
-    public String newStock(@PathVariable Long stockId, Stock stock){
+    public String newStock(@PathVariable Long stockId,@RequestBody Stock stock) throws JsonProcessingException {
         stockService.update(stockId, stock);
-        return "redirect:stock/" + stockId;
+        return "redirect:/stocks";
     }
+
+
 
 }

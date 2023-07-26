@@ -10,7 +10,6 @@ import java.util.List;
 public class StockService {
     private final StockRepository stockRepository;
     //public StockService(StockRepository stockRepository){ this.stockRepository = stockRepository;}
-    private static long sequence = 0L;
 
     public Long create(Stock stock){
         stockRepository.save(stock);
