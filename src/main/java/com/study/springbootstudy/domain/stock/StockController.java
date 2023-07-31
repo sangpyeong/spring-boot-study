@@ -33,11 +33,17 @@ public class StockController {
         return stockService.findById(stockId);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/stock/{stockId}/edit")
     public String newStock(@PathVariable Long stockId,@RequestBody Stock stock) throws JsonProcessingException {
         stockService.update(stockId, stock);
         return "redirect:/stocks";
+    }
+
+    @PostMapping("/stocks/delete")
+    public void delete(@RequestBody List<Long> ids){
+        for(Long id:ids){
+            stockService.delete(id);
+        }
     }
 
 
