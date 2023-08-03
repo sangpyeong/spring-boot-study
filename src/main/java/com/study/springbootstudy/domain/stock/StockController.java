@@ -3,6 +3,7 @@ package com.study.springbootstudy.domain.stock;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
 public class StockController {
-
+    @Autowired
     private final StockService stockService;
 
     @PostMapping("/stock/add")
@@ -33,13 +34,10 @@ public class StockController {
         return stockService.findById(stockId);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/stock/{stockId}/edit")
     public String newStock(@PathVariable Long stockId,@RequestBody Stock stock) throws JsonProcessingException {
         stockService.update(stockId, stock);
         return "redirect:/stocks";
     }
-
-
 
 }
