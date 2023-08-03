@@ -12,8 +12,6 @@ public class Stock{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String stockName;
-
-    @Column(name = "currentPrice")
     private Integer currentPrice;
     private Integer marketCapitalization;
     private Integer tradingVolume;

@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
 public class StockController {
-    @Autowired
     private final StockService stockService;
 
     @PostMapping("/stock/add")
@@ -39,5 +38,10 @@ public class StockController {
         stockService.update(stockId, stock);
         return "redirect:/stocks";
     }
-
+    @PostMapping("/stocks/delete")
+    public void delete(@RequestBody List<Long> ids){
+        for(Long id:ids){
+            stockService.delete(id);
+        }
+    }
 }
