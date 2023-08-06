@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 
-@Controller
-@ResponseBody
+@RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
 public class StockController {

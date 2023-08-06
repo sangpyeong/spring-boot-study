@@ -9,8 +9,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class StockService {
+
     private final JpaStockRepository stockRepository;
-    //public StockService(StockRepository stockRepository){ this.stockRepository = stockRepository;}
 
     public Long create(Stock stock){
         stockRepository.save(stock);

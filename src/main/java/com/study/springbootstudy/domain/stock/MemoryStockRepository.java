@@ -20,13 +20,17 @@ public class MemoryStockRepository implements StockRepository {
     }
 
     @Override
-    public Stock findById(Long id) {
-        return store.get(id);
+    public Optional<Stock> findById(Long id) {
+        Optional<Stock> optionalStock = Optional.ofNullable(store.get(id));
+        return optionalStock;
     }
 
     @Override
     public Stock findByName(String name) {
-        return store.get(name);
+        return store.values().stream()
+                .filter(stock -> name.equals(stock.getStockName()))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
@@ -36,20 +40,20 @@ public class MemoryStockRepository implements StockRepository {
 
     @Override
     public void update(long stockId, Stock updateParam) {
-        Stock findStock = findById(stockId);
-        findStock.setStockName(updateParam.getStockName());
-        findStock.setCurrentPrice(updateParam.getCurrentPrice());
-        findStock.setTradingVolume(updateParam.getTradingVolume());
-        findStock.setMarketCapitalization(updateParam.getMarketCapitalization());
+        Optional<Stock> optionalStock = findById(stockId);
+
+        optionalStock.ifPresent(findStock -> {
+            findStock.setStockName(updateParam.getStockName());
+            findStock.setCurrentPrice(updateParam.getCurrentPrice());
+            findStock.setTradingVolume(updateParam.getTradingVolume());
+            findStock.setMarketCapitalization(updateParam.getMarketCapitalization());
+        });
     }
 
     @Override
-    public void delete(long stockId) {
+    public void deleteById(long stockId) {
         store.remove(stockId);
     }
 
-    @Override
-    public void clearStore() {
-        store.clear();
-    }
+
 }
