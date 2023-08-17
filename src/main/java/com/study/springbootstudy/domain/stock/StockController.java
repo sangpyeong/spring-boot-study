@@ -16,9 +16,9 @@ public class StockController {
     private final StockService stockService;
 
     @PostMapping("/stock/add")
-    public String addStock(@RequestBody Stock stock) throws JsonProcessingException {
+    public void addStock(@RequestBody Stock stock) throws JsonProcessingException {
         stockService.create(stock);
-        return "redirect:/stocks";
+        return ;
     }
 
 
@@ -33,9 +33,9 @@ public class StockController {
     }
 
     @PostMapping("/stock/{stockId}/edit")
-    public String newStock(@PathVariable Long stockId,@RequestBody Stock stock) throws JsonProcessingException {
+    public void newStock(@PathVariable Long stockId,@RequestBody Stock stock) throws JsonProcessingException {
         stockService.update(stockId, stock);
-        return "redirect:/stocks";
+        return ;
     }
     @PostMapping("/stocks/delete")
     public void delete(@RequestBody List<Long> ids){
