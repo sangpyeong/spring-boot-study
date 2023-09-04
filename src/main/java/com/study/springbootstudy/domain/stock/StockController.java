@@ -21,7 +21,6 @@ public class StockController {
         return ;
     }
 
-
     @GetMapping("/stocks")
     public List<Stock> stocks(){
         return stockService.findAll();
